@@ -28,7 +28,6 @@ def generate_parameters(config):
     all_params_to_test = []
     for clusterer, params in parameters.items():
         clus_kwargs = config['clusterer_kwargs'].get(clusterer, {})
-        print(clus_kwargs)
         kwargs = config['generate_parameters_addtl_kwargs'].get(clusterer, {})
         df = hypercluster.AutoClusterer(
             clusterer_name=clusterer,
@@ -370,3 +369,5 @@ rule draw_scree_plots:
                     output_folder, wildcards.input_file, clustering_results, metric
                 )
             )
+
+
