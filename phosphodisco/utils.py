@@ -50,9 +50,10 @@ def norm_line_to_residuals(
     ridgecv_kwargs["alphas"] = regularization_values
     ridgecv_kwargs["cv"] = cv
 
-    model = RidgeCV(**ridgecv_kwargs, random_state=11206).fit(
-        features, labels
-    )  # same random state each time
+    model = RidgeCV(**ridgecv_kwargs)
+    # tmp = dict(random_state=11206)
+    # model = model.set_params(**tmp)
+    model = model.fit(features, labels)
 
     if prevent_negative_coefficients and (model.coef_[0] <= 0):
         return pd.Series(np.empty(len(ph_line)), ph_line.index)
