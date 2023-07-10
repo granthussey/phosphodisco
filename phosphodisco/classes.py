@@ -165,7 +165,7 @@ class ProteomicsData:
         target[datatype_label] = 0
         features[datatype_label] = 1
 
-        data = target.append(features)
+        data = pd.concat([target, features])
         data = data.set_index(datatype_label, append=True)
         data.index = data.index.swaplevel(0, 1)
         data = data.transpose()
@@ -292,7 +292,7 @@ class ProteomicsData:
             .fit(data_for_clustering)
             .evaluate([method_to_pick_best_labels])
         )
-        
+
         modules = mac.pick_best_labels(method_to_pick_best_labels, min_or_max)
         self.modules = modules
         self.multiautoclusterer = mac
